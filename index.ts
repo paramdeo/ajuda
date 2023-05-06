@@ -1,4 +1,7 @@
+// Strings
+
 export const string = {
+
   reverse(string: string): string {
     return [...string].reverse().join('').toString()
   },
@@ -8,7 +11,10 @@ export const string = {
   }
 }
 
+// Arrays
+
 export const array = {
+
   flatten(array: Array<any>, number: number = Infinity): Array<any> {
     return array.flat(number)
   },
@@ -22,7 +28,10 @@ export const array = {
   }
 }
 
+// Numbers
+
 export const number = {
+
   multiply(number: number, _number: number): number {
     if (!Number.isSafeInteger(number) || !Number.isSafeInteger(_number)) {
       throw new Error('One or both numbers are unsafe integers')
@@ -35,7 +44,10 @@ export const number = {
   }
 }
 
+// Sets
+
 export const set = {
+
   intersection(set: Set<any>, _set: Set<any>): Set<any> {
     return new Set(
       Array.from(set).filter(element => _set.has(element))

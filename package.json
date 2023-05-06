@@ -1,10 +1,10 @@
 {
   "name": "jshelper",
   "version": "1.0.0",
-  "description": "A library of helper functions extending the functionality of JavaScript primitives",
+  "description": "A library of methods to augment functionality on JavaScript objects and primitives",
   "main": "index.ts",
   "scripts": {
-    "test": "jest",
+    "test": "jest --collect-coverage --testTimeout=500 --verbose",
     "tsup": "tsup index.ts --dts --target es2021 --format esm,cjs"
   },
   "repository": {

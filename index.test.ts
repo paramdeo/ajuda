@@ -20,3 +20,8 @@ test('array.sortNumbers', () => {
   const test = [1,5,66,3,9,7,99,33]
   expect(array.sortNumbers(test)).toStrictEqual([1,3,5,7,9,33,66,99])
 })
+
+test('array.sortWordsByLength', () => {
+  const words = ['aaa', 'b', 'cc', 'foo', 'bars']
+  expect(array.sortWordsByLength(words)).toStrictEqual(['b', 'cc', 'aaa', 'foo', 'bars'])
+})

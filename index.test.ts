@@ -17,6 +17,6 @@ test('string.slugify', () => {
 // Arrays
 
 test('array.sortNumbers', () => {
-  const test = [1,5,3,8,6,92,45,87]
-  expect(array.sortNumbers(test)).toStrictEqual([1,3,5,6,8,45,87,92])
+  const test = [1,5,66,3,9,7,99,33]
+  expect(array.sortNumbers(test)).toStrictEqual([1,3,5,7,9,33,66,99])
 })

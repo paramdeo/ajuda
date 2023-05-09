@@ -19,8 +19,30 @@ export const array = {
     return array.flat(number)
   },
 
+  /**
+   * Sorts numbers according to size.
+   * @param array An array of unsorted numbers.
+   * @returns An array of sorted numbers.
+   * @example
+   * let unsorted = [1,5,66,3,8,7,99,33]
+   * array.sortNumbers(unsorted) // [1,3,5,7,9,33,66,99]
+   */
   sortNumbers(array: Array<number>): Array<number> {
     return array.sort((a, b) => a - b)
+  },
+
+  /**
+   * Removes negative array indices and hidden properties.
+   * @param array An array with possible negative indices
+   * @returns An array without negative indices
+   * @example
+   * let example = [1,2,3]
+   * example[-1] = 5
+   * 
+   * array.sanitize([example]) // [1,2,3]
+   */
+  sanitize(array: Array<any>): Array<any> {
+    return array.filter(element => array.indexOf(element) >= 0)
   },
 
   sortWordsByLength(array: Array<string>): Array<string> {

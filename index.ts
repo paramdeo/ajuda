@@ -1,3 +1,9 @@
+function typeError(parameter: unknown, type: string): never {
+  // Throw an error when the parameter input type is incorrect
+  // For JavaScript users mostly, and also for better test coverage
+  throw new Error(`${parameter} is not a valid ${type}`)
+}
+
 // Strings
 
 export const string = {
@@ -10,6 +16,7 @@ export const string = {
    * string.reverse('dlrow olleh') // 'hello world'
    */
   reverse(string: string): string {
+    if (typeof string !== 'string') { typeError(string, 'string') }
     return [...string].reverse().join('').toString()
   },
 
@@ -22,6 +29,7 @@ export const string = {
    * string.slugify(example) // alice-and-bob-discover-mushrooms
    */
   slugify(string: string): string {
+    if (typeof string !== 'string') { typeError(string, 'string') }
     return string.toLowerCase().replaceAll(' ','-')
   }
 }
@@ -30,6 +38,15 @@ export const string = {
 
 export const array = {
 
+  /**
+   * Flattens an array. If n
+   * @param array An array of elements.
+   * @param number The depth at which to flatten. If omitted, defaults to Infinity.
+   * @returns A flattened array.
+   * @example
+   * array.flatten([1, 2, [3]]) //  [1, 2, 3]
+   * array.flatten([1, 2, [3], [[4,5]]], 2) //  [1, 2, 3, 4, 5]
+   */
   flatten(array: Array<any>, number: number = Infinity): Array<any> {
     return array.flat(number)
   },
@@ -42,7 +59,7 @@ export const array = {
    * array.removeDuplicates([1, 2, 3, 3]) //  [1, 2, 3]
    * array.removeDuplicates([1, 2, 3, 3, 'alice', 'bob', 'alice']) // [1, 2, 3, 'alice', 'bob'] 
    */
-  removeDuplicates(array: Array<any>): Array<any> {
+  removeDuplicates<T>(array: Array<T>): Array<T> {
     return Array.from(new Set([...array]))
   },
 
@@ -68,7 +85,7 @@ export const array = {
    * 
    * array.sanitize(example) // [1, 2, 3]
    */
-  sanitize(array: Array<any>): Array<any> {
+  sanitize<T>(array: Array<T>): Array<T> {
     return array.filter(element => array.indexOf(element) >= 0)
   },
 

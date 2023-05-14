@@ -1,5 +1,5 @@
 function typeError(parameter: unknown, type: string): never {
-  // Throw an error when the parameter input type is incorrect
+  // Throw an error when the parameter type is incorrect
   // For JavaScript users mostly, and also for better test coverage
   throw new Error(`${parameter} is not a valid ${type}`)
 }
@@ -21,6 +21,7 @@ export const string = {
   },
 
   /**
+   * @todo Implement regex pattern matching unsafe chars for URLs
    * Converts a string of text into a URL-friendly slug.
    * @param string A string of words in any case.
    * @returns A URL slug.
@@ -76,17 +77,22 @@ export const array = {
   },
 
   /**
-   * Removes negative array indices.
-   * @param array An array with possible negative indices
-   * @returns An array without negative indices
+   * Removes negative array indices, as well as hidden properties.
+   * @param array An array with possible negative indices and/or hidden properties.
+   * @returns An array without negative indices or hidden properties.
    * @example
-   * let example = [1, 2, 3]
-   * example[-1] = 5
+   * let example = [1, 2, 3, 'alice', 'bob']
+   * example.foo = 'bar'
+   * example[-1] = 69
+   * 
+   * example.length // 5
+   * Object.values(example) // [1, 2, 3, 'alice', 'bob', 'bar', 69]
    * 
    * array.sanitize(example) // [1, 2, 3]
    */
   sanitize<T>(array: Array<T>): Array<T> {
-    return array.filter(element => array.indexOf(element) >= 0)
+    let temp = new Set(array)
+    return Array.from(temp).filter(element => array.indexOf(element) >= 0)
   },
 
   /**
@@ -119,7 +125,7 @@ export const array = {
    * array.isEqual(arr2, arr4) // false
    * array.isEqual(arr1, arr5) // true
    */
-  isEqual(array: Array<any>, _array: Array<any>): boolean {
+  isEqual<T>(array: Array<T>, _array: Array<T>): boolean {
     return Object.is(array, _array)
   }
 }

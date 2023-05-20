@@ -1,4 +1,4 @@
-import { string, array } from './index'
+import { string, array, set } from './index'
 
 // Strings
 
@@ -69,4 +69,24 @@ test('array.sanitize(mixed)', () => {
   mixed.foo = 'bar'
   mixed[-1] = 69
   expect(array.sanitize(mixed)).toStrictEqual([1, 2, 3, 'alice', 'bob'])
+})
+
+// Sets
+
+test('set.intersection', () => {
+  let SetA = new Set([1, 2, 3, 4, 5])
+  let SetB = new Set([2, 3, 4, 5, 6])
+  expect(Array.from(set.intersection(SetA, SetB))).toStrictEqual([2, 3, 4, 5])
+})
+
+test('set.difference', () => {
+  let SetA = new Set([1, 2, 3, 4, 5])
+  let SetB = new Set([2, 3, 4, 5, 6])
+  expect(Array.from(set.difference(SetA, SetB))).toStrictEqual([1, 6])
+})
+
+test('set.union', () => {
+  let SetA = new Set([1, 2, 3, 4, 5])
+  let SetB = new Set([2, 3, 4, 5, 6])
+  expect(Array.from(set.union(SetA, SetB))).toStrictEqual([1, 2, 3, 4, 5, 6])
 })

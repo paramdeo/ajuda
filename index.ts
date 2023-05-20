@@ -31,7 +31,7 @@ export const string = {
    */
   slugify(string: string): string {
     if (typeof string !== 'string') { typeError(string, 'string') }
-    return string.toLowerCase().replaceAll(' ','-')
+    return string.toLowerCase().replaceAll(' ', '-')
   }
 }
 
@@ -164,13 +164,55 @@ export const number = {
 // Sets
 
 export const set = {
-
+  /**
+  * Takes two Sets as arguments and returns a Set that has elements contained in both Sets.
+  * @param set A Set of elements.
+  * @param _set A Set of elements.
+  * @returns A Set containing elements found in both Sets
+  * @example
+  * let SetA = new Set([1, 2, 3, 4, 5])
+  * let SetB = new Set([2, 3, 4, 5, 6])
+  * Array.from(set.intersection(SetA, SetB)) // [2, 3, 4, 5]
+  */
   intersection(set: Set<any>, _set: Set<any>): Set<any> {
     return new Set(
       Array.from(set).filter(element => _set.has(element))
     )
   },
 
+
+  /**
+  * Takes two Sets as arguments and returns a Set that has elements NOT contained in both Sets. Please note that this operation computes the Symmetric Set Difference as that's a saner/implicit default when comparing two Sets.
+  * @param set A Set of elements.
+  * @param _set A Set of elements.
+  * @returns A Set containing elements NOT found in both Sets
+  * @example
+  * let SetA = new Set([1, 2, 3, 4, 5])
+  * let SetB = new Set([2, 3, 4, 5, 6])
+  * Array.from(set.intersection(SetA, SetB)) // [1, 6]
+  */
+  difference(set: Set<any>, _set: Set<any>): Set<any> {
+    let __set: Set<any> = new Set(set)
+    for (let element of _set) {
+      if (__set.has(element)) {
+        __set.delete(element)
+      } else {
+        __set.add(element)
+      }
+    }
+    return __set
+  },
+
+  /**
+  * Takes two Sets as arguments and returns a Set of merged elements from both Sets.
+  * @param set A Set of elements.
+  * @param _set A Set of elements.
+  * @returns A Set containing merged elements from both Sets.
+  * @example
+  * let SetA = new Set([1, 2, 3, 4, 5])
+  * let SetB = new Set([2, 3, 4, 5, 6])
+  * Array.from(set.union(SetA, SetB)) // [1, 2, 3, 4, 5, 6]
+  */
   union(set: Set<any>, _set: Set<any>): Set<any> {
     return new Set([
       ...set,

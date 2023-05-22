@@ -158,6 +158,23 @@ export const number = {
       throw new Error('Product of both numbers is an unsafe integer')
     }
     return result
+  },
+
+
+  /**
+   * Returns an array of numbers in a given range (inclusive of the starting and ending numbers).
+   * @param start The beginning of the range.
+   * @param end The end of the range.
+   * @returns An array of numbers within the given range.
+   * @example
+   * number.range(1, 10) // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+   */
+  range(start: number, end: number): Array<number> {
+    let range = []
+    for (let _ = start; _ < end + 1; _++) {
+      range.push(_)
+    }
+    return range
   }
 }
 

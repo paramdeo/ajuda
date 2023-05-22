@@ -1,4 +1,4 @@
-import { string, array, set } from './index'
+import { string, number, array, set } from './index'
 
 // Strings
 
@@ -19,6 +19,12 @@ test('string.slugify', () => {
   const slug = /[A-Za-z0-9-]/
   expect(string.slugify(test)).toStrictEqual('the-quick-brown-fox')
   expect(string.slugify(test)).toStrictEqual(expect.stringMatching(slug))
+})
+
+// Numbers
+
+test('number.range', () => {
+  expect(number.range(1, 10)).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 })
 
 // Arrays

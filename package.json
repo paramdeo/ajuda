@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --testTimeout=500",
     "jest": "jest --collect-coverage --testTimeout=500 --verbose",
-    "tsup": "tsup index.ts --dts --target es2021 --format esm,cjs"
+    "tsup": "tsup index.ts --dts --target es2021 --format esm,cjs --minify"
   },
   "repository": {
     "type": "git",

@@ -237,3 +237,29 @@ export const set = {
     ])
   }
 }
+
+export const utils = {
+
+   /**
+   * @todo Make sure the descriptions below are mathematically correct...
+   * Creates a generator function that returns the powers of a given base with each iteration.
+   * @param base The base number for which powers will be generated.
+   * @result The power of the base, incrementing with each iteration.
+   * @example
+   * let baseFive = utils.powersOf(5)
+   *
+   * five.next() // { value: 1, done: false }
+   * five.next() // { value: 5, done: false }
+   * five.next() // { value: 25, done: false }
+   * five.next().value // 125
+   * five.next() // { value: 625, done: false }
+   * five.return() // { done: true }
+   */
+   *powersOf(base: number) {
+    let exponent = 0
+    while (true) {
+      yield base ** exponent
+      exponent++
+    }
+  }
+}

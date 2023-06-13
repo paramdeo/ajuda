@@ -1,4 +1,4 @@
-import { string, number, array, set } from './index'
+import { string, number, array, set } from './index.js'
 
 // Strings
 
@@ -9,7 +9,6 @@ test('string.reverse', () => {
 test('string.reverse => Error', () => {
   // https://jestjs.io/docs/expect#tothrowerror => You must wrap the code in a function, otherwise the error will not be caught and the assertion will fail.
   expect(() => {
-    // @ts-expect-error
     string.reverse(69)
   }).toThrow()
 })
@@ -64,14 +63,12 @@ test('array.sortWordsByLength', () => {
 test('array.sanitize(numbers)', () => {
   let numbers = [1, 2, 3]
   numbers[-1] = 5
-  // @ts-ignore
   numbers.foo = 69
   expect(array.sanitize(numbers)).toStrictEqual([1, 2, 3])
 })
 
 test('array.sanitize(mixed)', () => {
   let mixed = [1, 2, 3, 'alice', 'bob']
-  // @ts-ignore
   mixed.foo = 'bar'
   mixed[-1] = 69
   expect(array.sanitize(mixed)).toStrictEqual([1, 2, 3, 'alice', 'bob'])

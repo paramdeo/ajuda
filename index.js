@@ -187,6 +187,33 @@ export const number = {
   }
 }
 
+// Objects
+
+export const object = {
+  /**
+   * Returns safely parsed JSON via round-tripping with JSON.stringify first.
+   * @param {Object} object The JSON payload to be safely parsed.
+   * @returns {Object} Safely parsed JSON
+   * @example
+   * let object = {
+   *     alpha: "bravo",
+   *     "charlie": "delta",
+   *     1: 2
+   * }
+   *
+   * object.parseJSON(object)
+   * 
+   *  {
+   *   "1": 2,
+   *   "alpha": "bravo",
+   *   "charlie": "delta"
+   *  }
+   */
+  parseJSON(object) {
+    return JSON.parse(JSON.stringify(object))
+  }
+}
+
 // Sets
 
 export const set = {

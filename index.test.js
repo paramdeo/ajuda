@@ -1,4 +1,4 @@
-import { string, number, array, set } from './index.js'
+import { string, number, array, object, set } from './index.js'
 
 // Strings
 
@@ -72,6 +72,22 @@ test('array.sanitize(mixed)', () => {
   mixed.foo = 'bar'
   mixed[-1] = 69
   expect(array.sanitize(mixed)).toStrictEqual([1, 2, 3, 'alice', 'bob'])
+})
+
+// Objects
+
+test('object.parseJSON', () => {
+  let malformedJSON = {
+      alpha: "bravo",
+      "charlie": "delta",
+      1: 2
+    }
+  let wellFormedJSON = {
+      "1": 2,
+      "alpha": "bravo",
+      "charlie": "delta"
+    }
+  expect(object.parseJSON(malformedJSON)).toStrictEqual(wellFormedJSON)
 })
 
 // Sets

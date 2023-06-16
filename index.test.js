@@ -1,4 +1,4 @@
-import { string, number, array, object, set } from './index.js'
+import { string, number, array, object, set, utils } from './index.js'
 
 // Strings
 
@@ -109,3 +109,8 @@ test('set.union', () => {
   let SetB = new Set([2, 3, 4, 5, 6])
   expect(Array.from(set.union(SetA, SetB))).toStrictEqual([1, 2, 3, 4, 5, 6])
 })
+
+test('utils.randomNumber', () => {
+  expect(utils.randomNumber(10)).toBeLessThanOrEqual(10)
+})
+

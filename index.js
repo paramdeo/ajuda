@@ -1,4 +1,3 @@
-
 /**
  * Type checks the input parameters of a given function
  * and throws an Error if the parameter type is incorrect
@@ -20,7 +19,7 @@ export const string = {
   /**
    * Reverses a given string of characters.
    * @param {string} string A string that needs reversing.
-   * @result A reversed string.
+   * @returns {string} A reversed string.
    * @example
    * string.reverse('dlrow olleh') // 'hello world'
    */
@@ -34,13 +33,58 @@ export const string = {
    * to Unicode escaped syntax
    * Converts a string of text into a URL-friendly slug.
    * @param {string} string A string of words in any case.
-   * @returns A URL slug.
+   * @returns {string} A URL slug.
    * @example
    * let example = 'Alice and Bob discover mushrooms'
    * string.slugify(example) // alice-and-bob-discover-mushrooms
    */
   slugify(string) {
+    checkParamTypes('string', string)
     return string.toLowerCase().replaceAll(' ', '-')
+  },
+
+  /**
+   * Compares two strings to check if they are the same (length, characters in order).
+   * @param {string} string The first string to compare.
+   * @param {string} _string The second string to compare.
+   * @returns {boolean} true if the strings are equal, false otherwise.
+   * @example
+   * let strA = 'Hello World.'
+   * let strB = 'Hello World.'
+   * let strC = 'Hello Earth.'
+   * let strD = 'Hello Planet.'
+   * string.compare(strA, strB) // true
+   * string.compare(strA, strC) // false
+   * string.compare(strB, strD) // false
+   */
+   compare(string, _string) {
+    checkParamTypes('string', string, _string)
+    if (string.length !== _string.length) {
+      return false
+    }
+    return JSON.stringify(string) === JSON.stringify(_string)
+  },
+
+  /**
+   * Compares two strings to check if they are anagrammatic, that is, both strings
+   * contain a different arrangement of the same characters.
+   * @param {string} string The first string to compare.
+   * @param {string} _string The second string to compare.
+   * @returns {boolean} true if the strings are anagrammatic, false otherwise.
+   * @example
+   * let strA = 'root', strB = 'toor'
+   * let strC = 'root', strD = 'boot'
+   * string.isAnagram(strA, strB) // true
+   * string.isAnagram(strC, strD) // false
+   */
+   isAnagram(string, _string) {
+    checkParamTypes('string', string, _string)
+    if (string.length !== _string.length) {
+      return false
+    }
+    let arr = Array.from(string).sort()
+    let _arr = Array.from(_string).sort()
+    return JSON.stringify(arr) === JSON.stringify(_arr)
   }
 }
 
@@ -49,39 +93,42 @@ export const string = {
 export const array = {
 
   /**
-   * Flattens an array. If n
+   * Flattens an array. If no depth is specified, the array is flattened completely by default.
    * @param {Array} array An array of elements.
    * @param {number} number The depth at which to flatten. If omitted, defaults to Infinity.
-   * @returns A flattened array.
+   * @returns {Array} A flattened array.
    * @example
    * array.flatten([1, 2, [3]]) //  [1, 2, 3]
    * array.flatten([1, 2, [3], [[4,5]]], 2) //  [1, 2, 3, 4, 5]
    */
   flatten(array, number = Infinity) {
+    checkParamTypes('object', array)
     return array.flat(number)
   },
 
   /**
    * Removes duplicate elements in an array.
    * @param {Array} array An array of elements.
-   * @returns An array without duplicate elements.
+   * @returns {Array} An array without duplicate elements.
    * @example
    * array.removeDuplicates([1, 2, 3, 3]) //  [1, 2, 3]
    * array.removeDuplicates([1, 2, 3, 3, 'alice', 'bob', 'alice']) // [1, 2, 3, 'alice', 'bob'] 
    */
   removeDuplicates(array) {
+    checkParamTypes('object', array)
     return Array.from(new Set([...array]))
   },
 
   /**
    * Sorts numbers according to size.
-   * @param {number[]} array An array of unsorted numbers.
-   * @returns {number[]} An array of sorted numbers.
+   * @param {Array<number>} array An array of unsorted numbers.
+   * @returns {Array<number>} An array of sorted numbers.
    * @example
    * let unsorted = [1, 5, 66, 3, 8, 7, 99, 33]
    * array.sortNumbers(unsorted) // [1, 3, 5, 7, 9, 33, 66, 99]
    */
   sortNumbers(array) {
+    checkParamTypes('object', array)
     return array.sort((a, b) => a - b)
   },
 
@@ -100,6 +147,7 @@ export const array = {
    * array.sanitize(example) // [1, 2, 3]
    */
   sanitize(array) {
+    checkParamTypes('object', array)
     let temp = new Set(array)
     return Array.from(temp).filter(element => array.indexOf(element) >= 0)
   },
@@ -107,12 +155,13 @@ export const array = {
   /**
    * Sorts an array of words by their length.
    * @param {Array<string>} array An array of words
-   * @returns An array of sorted words
+   * @returns {Array<string>} An array of sorted words
    * @example
    * let words = ['aaa', 'b', 'cc', 'foo', 'bars']
    * array.sortWords(words) // ['b', 'cc', 'aaa', 'foo', 'bars']
    */
   sortWordsByLength(array) {
+    checkParamTypes('object', array)
     return array.sort((a, b) => a.length - b.length)
   },
 

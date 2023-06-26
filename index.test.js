@@ -6,10 +6,16 @@ test('string.reverse', () => {
   expect(string.reverse('hello world')).toStrictEqual('dlrow olleh')
 })
 
-test('string.reverse => Error', () => {
+test('string.reverse => Error: Invalid paramter type', () => {
   // https://jestjs.io/docs/expect#tothrowerror => You must wrap the code in a function, otherwise the error will not be caught and the assertion will fail.
   expect(() => {
     string.reverse(69)
+  }).toThrow()
+})
+
+test('string.reverse => Error: Missing parameters', () => {
+  expect(() => {
+    string.reverse()
   }).toThrow()
 })
 

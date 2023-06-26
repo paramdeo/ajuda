@@ -9,6 +9,9 @@ function checkParamTypes(type, ...parameters) {
     if (typeof param !== type) {
       throw new Error(`${param} is not a valid ${type}`)
     }
+    if (param === undefined || param === null) {
+      throw new Error(`You're missing one or more parameters...`)
+    }
   }
 }
 

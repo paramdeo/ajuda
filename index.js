@@ -82,8 +82,8 @@ export const string = {
     if (string.length !== _string.length) {
       return false
     }
-    let arr = Array.from(string).sort()
-    let _arr = Array.from(_string).sort()
+    let arr = Array.from(string.toLowerCase()).sort()
+    let _arr = Array.from(_string.toLowerCase()).sort()
     return JSON.stringify(arr) === JSON.stringify(_arr)
   }
 }

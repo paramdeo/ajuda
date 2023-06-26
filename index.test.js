@@ -15,15 +15,27 @@ test('string.reverse => Error', () => {
 
 test('string.slugify', () => {
   const test = 'The quick brown fox'
-  const slug = /[A-Za-z0-9-]/
+  const slug = /\w+-/
   expect(string.slugify(test)).toStrictEqual('the-quick-brown-fox')
   expect(string.slugify(test)).toStrictEqual(expect.stringMatching(slug))
+})
+
+test('string.compare', () => {
+  expect(string.compare('The quick brown fox', 'The quick brown fox')).toBeTruthy()
+})
+
+test('string.isAnagram', () => {
+  expect(string.isAnagram('paramdeo', 'oedmarap')).toBeTruthy()
 })
 
 // Numbers
 
 test('number.range', () => {
   expect(number.range(1, 10)).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+})
+
+test('number.multiply', () => {
+  expect(number.multiply(5000, 2)).toStrictEqual(10000)
 })
 
 // Arrays
@@ -72,6 +84,12 @@ test('array.sanitize(mixed)', () => {
   mixed.foo = 'bar'
   mixed[-1] = 69
   expect(array.sanitize(mixed)).toStrictEqual([1, 2, 3, 'alice', 'bob'])
+})
+
+test('array.isEqual', () => {
+  let arr = [1, 2, 3, 4, 5]
+  let _arr = arr
+  expect(array.isEqual(arr, _arr)).toBeTruthy()
 })
 
 // Objects

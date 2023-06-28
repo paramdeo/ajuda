@@ -28,7 +28,10 @@ export const string = {
    */
   reverse(string) {
     checkParamTypes('string', string)
-    return Array.from(string).reverse().join('').toString()
+    return Array.from(string)
+      .reverse()
+      .join('')
+      .toString()
   },
 
   /**
@@ -331,7 +334,6 @@ export const set = {
 export const utils = {
 
   /**
-  * @todo Make sure the descriptions below are mathematically correct...
   * Creates a generator function that returns the powers of a given base with each iteration.
   * @param {number} base The base number for which powers will be generated.
   * @result The power of the base, incrementing with each iteration.

@@ -21,8 +21,10 @@ test('string.reverse => Error: Missing parameters', () => {
 
 test('string.slugify', () => {
   const test = 'The quick brown fox'
+  const _text = 'Alice and Bob!'
   const slug = /\w+-/
   expect(string.slugify(test)).toStrictEqual('the-quick-brown-fox')
+  expect(string.slugify(_test)).toStrictEqual('alice-and-bob')
   expect(string.slugify(test)).toStrictEqual(expect.stringMatching(slug))
 })
 

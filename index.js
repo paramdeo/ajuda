@@ -28,22 +28,24 @@ export const string = {
    */
   reverse(string) {
     checkParamTypes('string', string)
-    return [...string].reverse().join('').toString()
+    return Array.from(string).reverse().join('').toString()
   },
 
   /**
-   * @todo Implement regex pattern matching unsafe chars for URLs and convert
-   * to Unicode escaped syntax
-   * Converts a string of text into a URL-friendly slug.
+   * Converts a string of text into a URL-friendly slug. Sanitizes for slug-safe characters, i.e. letters, numbers, dashes.
    * @param {string} string A string of words in any case.
    * @returns {string} A URL slug.
    * @example
-   * let example = 'Alice and Bob discover mushrooms'
+   * let example = 'Alice and Bob discover mushrooms!'
    * string.slugify(example) // alice-and-bob-discover-mushrooms
    */
   slugify(string) {
     checkParamTypes('string', string)
-    return string.toLowerCase().replaceAll(' ', '-')
+    let unsafe = /[^a-z0-9-_]/g
+    return string
+      .toLowerCase()
+      .replaceAll(' ', '-')
+      .replaceAll(unsafe,'')
   },
 
   /**

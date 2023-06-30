@@ -61,6 +61,7 @@ export const string = {
    * let strB = 'Hello World.'
    * let strC = 'Hello Earth.'
    * let strD = 'Hello Planet.'
+   * 
    * string.compare(strA, strB) // true
    * string.compare(strA, strC) // false
    * string.compare(strB, strD) // false
@@ -74,16 +75,16 @@ export const string = {
   },
 
   /**
-   * Compares two strings to check if they are anagrammatic, that is, both strings
+   * Compares two strings to check if they are anagrammatic, that is, if both strings
    * contain a different arrangement of the same characters.
    * @param {string} string The first string to compare.
    * @param {string} _string The second string to compare.
    * @returns {boolean} true if the strings are anagrammatic, false otherwise.
    * @example
-   * let strA = 'root', strB = 'toor'
-   * let strC = 'root', strD = 'boot'
-   * string.isAnagram(strA, strB) // true
-   * string.isAnagram(strC, strD) // false
+   * let root = 'root', toor = 'toor', boot = 'boot'
+   * 
+   * string.isAnagram(root, toor) // true
+   * string.isAnagram(root, boot) // false
    */
    isAnagram(string, _string) {
     checkParamTypes('string', string, _string)
@@ -119,7 +120,7 @@ export const array = {
    * @param {Array} array An array of elements.
    * @returns {Array} An array without duplicate elements.
    * @example
-   * array.removeDuplicates([1, 2, 3, 3]) //  [1, 2, 3]
+   * array.removeDuplicates([1, 2, 3, 3]) // [1, 2, 3]
    * array.removeDuplicates([1, 2, 3, 3, 'alice', 'bob', 'alice']) // [1, 2, 3, 'alice', 'bob'] 
    */
   removeDuplicates(array) {
@@ -166,9 +167,9 @@ export const array = {
    * @returns {Array<string>} An array of sorted words
    * @example
    * let words = ['aaa', 'b', 'cc', 'foo', 'bars']
-   * array.sortWords(words) // ['b', 'cc', 'aaa', 'foo', 'bars']
+   * array.sortStrings(words) // ['b', 'cc', 'aaa', 'foo', 'bars']
    */
-  sortWordsByLength(array) {
+  sortStringsByLength(array) {
     checkParamTypes('object', array)
     return array.sort((a, b) => a.length - b.length)
   },
@@ -201,16 +202,16 @@ export const array = {
 export const number = {
 
   /**
-   * Multiplies two numbers and checks whether either number or product are safe integers.
+   * Multiplies two numbers and checks whether either numbers or product are safe integers.
    * @param {number} number A number to be multiplied (throws an error if the number is unsafe).
    * @param {number} _number A number to be multiplied (throws an error if the number is unsafe).
    * @returns A product (throws an error if the product is unsafe).
    * @example
    * number.multiply(5000, 2) // 10000
    * number.multiply(1_000_000, 5) // 5000000
-   * multiply(9007199254740991, 1) // 9007199254740991
-   * multiply(9007199254740992, 1) // 9007199254740992 is an unsafe integer.
-   * multiply(9007199254740991, 2) // [ERR]: Product of both numbers is an unsafe integer
+   * number.multiply(9007199254740991, 1) // 9007199254740991
+   * number.multiply(9007199254740992, 1) // [ERR]: 9007199254740992 is an unsafe integer.
+   * number.multiply(9007199254740991, 2) // [ERR]: Product of both numbers is an unsafe integer
    */
   multiply(number, _number) {
     if (!Number.isSafeInteger(number)) {

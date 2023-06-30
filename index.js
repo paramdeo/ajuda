@@ -4,13 +4,10 @@
  * @param {any} parameters
  * @param {any} type
 */
-function checkParamTypes(type, ...parameters) {
+function checkParams(type, ...parameters) {
   for (let param of parameters) {
     if (typeof param !== type) {
       throw new Error(`${param} is not a valid ${type}`)
-    }
-    if (param === undefined || param === null) {
-      throw new Error(`You're missing one or more parameters...`)
     }
   }
 }
@@ -27,7 +24,7 @@ export const string = {
    * string.reverse('dlrow olleh') // 'hello world'
    */
   reverse(string) {
-    checkParamTypes('string', string)
+    checkParams('string', string)
     return Array.from(string)
       .reverse()
       .join('')
@@ -43,7 +40,7 @@ export const string = {
    * string.slugify(example) // alice-and-bob-discover-mushrooms
    */
   slugify(string) {
-    checkParamTypes('string', string)
+    checkParams('string', string)
     let unsafe = /[^a-z0-9-_]/g
     return string
       .toLowerCase()
@@ -67,7 +64,7 @@ export const string = {
    * string.compare(strB, strD) // false
    */
    compare(string, _string) {
-    checkParamTypes('string', string, _string)
+    checkParams('string', string, _string)
     if (string.length !== _string.length) {
       return false
     }
@@ -87,7 +84,7 @@ export const string = {
    * string.isAnagram(root, boot) // false
    */
    isAnagram(string, _string) {
-    checkParamTypes('string', string, _string)
+    checkParams('string', string, _string)
     if (string.length !== _string.length) {
       return false
     }
@@ -111,7 +108,7 @@ export const array = {
    * array.flatten([1, 2, [3], [[4,5]]], 2) //  [1, 2, 3, 4, 5]
    */
   flatten(array, number = Infinity) {
-    checkParamTypes('object', array)
+    checkParams('object', array)
     return array.flat(number)
   },
 
@@ -124,7 +121,7 @@ export const array = {
    * array.removeDuplicates([1, 2, 3, 3, 'alice', 'bob', 'alice']) // [1, 2, 3, 'alice', 'bob'] 
    */
   removeDuplicates(array) {
-    checkParamTypes('object', array)
+    checkParams('object', array)
     return Array.from(new Set([...array]))
   },
 
@@ -136,9 +133,15 @@ export const array = {
    * let unsorted = [1, 5, 66, 3, 8, 7, 99, 33]
    * array.sortNumbers(unsorted) // [1, 3, 5, 7, 9, 33, 66, 99]
    */
-  sortNumbers(array) {
-    checkParamTypes('object', array)
-    return array.sort((a, b) => a - b)
+  sortNumbers(array, { sort } = {}) {
+    checkParams('object', array)
+    if (sort === 'desc') {
+      return array.sort((a, b) => b - a)
+    }
+    else if (sort === 'asc') {
+      return array.sort((a, b) => a - b)
+    }
+    else return array.sort((a,b) => a - b) 
   },
 
   /**
@@ -156,7 +159,7 @@ export const array = {
    * array.sanitize(example) // [1, 2, 3]
    */
   sanitize(array) {
-    checkParamTypes('object', array)
+    checkParams('object', array)
     let temp = new Set(array)
     return Array.from(temp).filter(element => array.indexOf(element) >= 0)
   },
@@ -170,7 +173,7 @@ export const array = {
    * array.sortStrings(words) // ['b', 'cc', 'aaa', 'foo', 'bars']
    */
   sortStringsByLength(array) {
-    checkParamTypes('object', array)
+    checkParams('object', array)
     return array.sort((a, b) => a.length - b.length)
   },
 
@@ -242,6 +245,20 @@ export const number = {
       range.push(_)
     }
     return range
+  },
+
+  /**
+   * Returns a random number between 1 and the end of the range (inclusive).
+   * @param {number} _number The upper limit of the range of random numbers.
+   * @result A random number between 1 and the end of the range (inclusive).
+   * @example
+   * return utils.randomNumber(10) // 8
+   * return utils.randomNumber(10) // 4
+   * return utils.randomNumber(10) // 3
+   * return utils.randomNumber(10) // 10
+   */
+  random(_number) {
+    return Math.ceil(Math.random() * _number)
   }
 }
 
@@ -332,41 +349,3 @@ export const set = {
   }
 }
 
-export const utils = {
-
-  /**
-  * Creates a generator function that returns the powers of a given base with each iteration.
-  * @param {number} base The base number for which powers will be generated.
-  * @result The power of the base, incrementing with each iteration.
-  * @example
-  * let baseFive = utils.powersOf(5)
-  *
-  * five.next() // { value: 1, done: false }
-  * five.next() // { value: 5, done: false }
-  * five.next() // { value: 25, done: false }
-  * five.next().value // 125
-  * five.next() // { value: 625, done: false }
-  * five.return() // { done: true }
-  */
-  *powersOf(base) {
-    let exponent = 0
-    while (true) {
-      yield base ** exponent
-      exponent++
-    }
-  },
-
-  /**
-   * Returns a random number between 1 and the end of the range (inclusive).
-   * @param {number} _number The upper limit of the range of random numbers.
-   * @result A random number between 1 and the end of the range (inclusive).
-   * @example
-   * return utils.randomNumber(10) // 8
-   * return utils.randomNumber(10) // 4
-   * return utils.randomNumber(10) // 3
-   * return utils.randomNumber(10) // 10
-   */
-  randomNumber(_number) {
-    return Math.ceil(Math.random() * _number)
-  }
-}

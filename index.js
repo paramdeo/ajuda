@@ -25,7 +25,8 @@ export const string = {
    */
   reverse(string) {
     checkParams('string', string)
-    return Array.from(string)
+    let _ = string.slice()
+    return Array.from(_)
       .reverse()
       .join('')
       .toString()
@@ -42,7 +43,8 @@ export const string = {
   slugify(string) {
     checkParams('string', string)
     let unsafe = /[^a-z0-9-_]/g
-    return string
+    let _ = string.slice()
+    return _
       .toLowerCase()
       .replaceAll(' ', '-')
       .replaceAll(unsafe,'')
@@ -109,7 +111,8 @@ export const array = {
    */
   flatten(array, number = Infinity) {
     checkParams('object', array)
-    return array.flat(number)
+    let _ = array.slice()
+    return _.flat(number)
   },
 
   /**
@@ -122,26 +125,62 @@ export const array = {
    */
   removeDuplicates(array) {
     checkParams('object', array)
-    return Array.from(new Set([...array]))
+    let _ = array.slice()
+    return Array.from(new Set([..._]))
   },
 
   /**
-   * Sorts numbers according to size.
+   * Sorts an array of numbers according to size.
    * @param {Array<number>} array An array of unsorted numbers.
    * @returns {Array<number>} An array of sorted numbers.
    * @example
    * let unsorted = [1, 5, 66, 3, 8, 7, 99, 33]
-   * array.sortNumbers(unsorted) // [1, 3, 5, 7, 9, 33, 66, 99]
+   * array.sortNumbers(unsorted, { sort: 'asc' }) // [1, 3, 5, 7, 9, 33, 66, 99]
    */
   sortNumbers(array, { sort } = {}) {
     checkParams('object', array)
+    let _ = array.slice()
     if (sort === 'desc') {
-      return array.sort((a, b) => b - a)
+      return _.sort((a, b) => b - a)
     }
     else if (sort === 'asc') {
-      return array.sort((a, b) => a - b)
+      return _.sort((a, b) => a - b)
     }
-    else return array.sort((a,b) => a - b) 
+    else return _.sort((a,b) => a - b) 
+  },
+
+  /**
+   * Sorts an array of strings alphabetically.
+   * @param {Array<string>} array An array of unsorted strings.
+   * @returns {Array<string>} An array of sorted strings.
+   * @example
+   * let unsorted = ['aaa', 'b', 'cc', 'foo', 'bars']
+   * array.sortStrings(unsorted, { sort: 'asc' }) // ['aaa', 'b', 'cc', 'foo', 'bars']
+   */
+  sortStrings(array, { sort } = {}) {
+    checkParams('object', array)
+    let _ = array.slice()
+    if (sort === 'desc') {
+      return _.sort().reverse()
+    }
+    else if (sort === 'asc') {
+      return _.sort()
+    }
+    else return _.sort()
+  },
+
+  /**
+   * Sorts an array of strings by their length.
+   * @param {Array<string>} array An array of strings.
+   * @returns {Array<string>} An array of sorted strings.
+   * @example
+   * let unsorted = ['aaa', 'b', 'cc', 'foo', 'bars']
+   * array.sortStrings(unsorted) // ['b', 'cc', 'aaa', 'foo', 'bars']
+   */
+  sortStringsByLength(array) {
+    checkParams('object', array)
+    let _ = array.slice()
+    return _.sort((a, b) => a.length - b.length)
   },
 
   /**
@@ -160,21 +199,8 @@ export const array = {
    */
   sanitize(array) {
     checkParams('object', array)
-    let temp = new Set(array)
-    return Array.from(temp).filter(element => array.indexOf(element) >= 0)
-  },
-
-  /**
-   * Sorts an array of words by their length.
-   * @param {Array<string>} array An array of words
-   * @returns {Array<string>} An array of sorted words
-   * @example
-   * let words = ['aaa', 'b', 'cc', 'foo', 'bars']
-   * array.sortStrings(words) // ['b', 'cc', 'aaa', 'foo', 'bars']
-   */
-  sortStringsByLength(array) {
-    checkParams('object', array)
-    return array.sort((a, b) => a.length - b.length)
+    let _ = new Set(array)
+    return Array.from(_).filter(element => array.indexOf(element) >= 0)
   },
 
   /**
@@ -348,4 +374,3 @@ export const set = {
     ])
   }
 }
-

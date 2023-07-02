@@ -1,31 +1,30 @@
 import { string, number, array, object, set } from './index.js'
 
+/*
+https://jestjs.io/docs/expect#tothrowerror => You must wrap the code in a function, otherwise the error will not be caught and the assertion will fail.
+*/
+
 // string.reverse()
 
 test('string.reverse', () => {
   expect(string.reverse('hello world')).toStrictEqual('dlrow olleh')
-})
 
-test('string.reverse --> Error: Invalid parameter type', () => {
-  // https://jestjs.io/docs/expect#tothrowerror => You must wrap the code in a function, otherwise the error will not be caught and the assertion will fail.
+  // invalid parameter type
   expect(() => {
     string.reverse(69)
   }).toThrow()
-})
 
-test('string.reverse --> Error: Implicit undefined parameter', () => {
+  // undefined parameter (implicit)
   expect(() => {
     string.reverse()
   }).toThrow()
-})
 
-test('string.reverse --> Error: Explicit undefined parameter', () => {
+  // undefined parameter (explicit)
   expect(() => {
     string.reverse(undefined)
   }).toThrow()
-})
 
-test('string.reverse --> Error: Null parameter', () => {
+  // null parameter
   expect(() => {
     string.reverse(null)
   }).toThrow()
@@ -40,16 +39,13 @@ test('string.slugify', () => {
   expect(string.slugify(test)).toStrictEqual('the-quick-brown-fox')
   expect(string.slugify(_test)).toStrictEqual('alice-and-bob')
   expect(string.slugify(test)).toStrictEqual(expect.stringMatching(slug))
-})
 
-test('string.slugify --> Error: Invalid parameter type', () => {
-  // https://jestjs.io/docs/expect#tothrowerror => You must wrap the code in a function, otherwise the error will not be caught and the assertion will fail.
+  // invalid parameter type
   expect(() => {
     string.slugify(69)
   }).toThrow()
-})
 
-test('string.slugify --> Error: Missing parameters', () => {
+  // missing parameters
   expect(() => {
     string.slugify()
   }).toThrow()
@@ -57,104 +53,145 @@ test('string.slugify --> Error: Missing parameters', () => {
 
 // string.compare()
 
-test('string.compare(true)', () => {
+test('string.compare', () => {
+  // true
   expect(string.compare('The quick brown fox', 'The quick brown fox')).toBeTruthy()
-})
 
-test('string.compare(false)', () => {
+  // false
   expect(string.compare('The quick brown fox', 'The quick brown foxes')).toBeFalsy()
 })
 
-test('string.isAnagram(true)', () => {
+test('string.isAnagram', () => {
+  // true
   expect(string.isAnagram('paramdeo', 'oedmarap')).toBeTruthy()
-})
 
-test('string.isAnagram(false)', () => {
+  // false
   expect(string.isAnagram('paramdeo', 'oedmaraps')).toBeFalsy()
 })
 
-// Numbers
+// number.range()
 
 test('number.range', () => {
   expect(number.range(1, 10)).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 })
 
-test('number.multiply(safe)', () => {
-  expect(number.multiply(5000, 2)).toStrictEqual(10000)
-})
+// number.multiply()
 
-test('number.multiply --> Error: Unsafe multiplier', () => {
+test('number.multiply', () => {
+  // safe
+  expect(number.multiply(5000, 2)).toStrictEqual(10000)
+
+  // unsafe multiplier
   expect(() => {
     number.multiply(9007199254740992, 1)
   }).toThrow()
-})
 
-test('number.multiply --> Error: Unsafe multiplicand', () => {
+  // unsafe multiplicand
   expect(() => {
     number.multiply(1, 9007199254740992)
   }).toThrow()
-})
 
-test('number.multiply --> Error: Unsafe product', () => {
+  // unsafe product
   expect(() => {
     number.multiply(9007199254740991, 2)
   }).toThrow()
 })
 
+// number.random()
+
 test('number.random', () => {
   expect(number.random(10)).toBeLessThanOrEqual(10)
 })
 
-// Arrays
+// array.flatten()
 
-test('array.flatten(numbers)', () => {
+test('array.flatten', () => {
+  // numbers
   expect(array.flatten([1, 2, [3]])).toStrictEqual([1, 2, 3])
   expect(array.flatten([1, 2, [3], [[4, 5]]], 2)).toStrictEqual([1, 2, 3, 4, 5])
   expect(array.flatten([1, 2, [3], [[4, 5]]])).toStrictEqual([1, 2, 3, 4, 5])
-})
 
-test('array.flatten(strings)', () => {
+  // strings
   expect(array.flatten(['a', 'bb', ['ccc']])).toStrictEqual(['a', 'bb', 'ccc'])
   expect(array.flatten(['a', 'bb', ['ccc'], [['dddd', 'eeeee']]], 2)).toStrictEqual(['a', 'bb', 'ccc', 'dddd', 'eeeee'])
   expect(array.flatten(['a', 'bb', ['ccc'], [['dddd', 'eeeee']]])).toStrictEqual(['a', 'bb', 'ccc', 'dddd', 'eeeee'])
 })
 
-test('array.removeDuplicates(numbers)', () => {
+// array.hasDuplicates()
+
+test('array.hasDuplicates', () => {
+  // numbers
+  expect(array.hasDuplicates([1, 2, 3, 3])).toBeTruthy()
+  expect(array.hasDuplicates([1, 2, 3])).toBeFalsy()
+
+  // strings
+  expect(array.hasDuplicates(['a', 'b', 'c', 'c'])).toBeTruthy()
+  expect(array.hasDuplicates(['a', 'b', 'c'])).toBeFalsy()
+})
+
+// array.removeDuplicates()
+
+test('array.removeDuplicates', () => {
+  // numbers
   expect(array.removeDuplicates([1, 2, 3, 3])).toStrictEqual([1, 2, 3])
-})
 
-test('array.removeDuplicates(strings)', () => {
+  // strings
   expect(array.removeDuplicates(['alice', 'bob', 'alice'])).toStrictEqual(['alice', 'bob'])
-})
 
-test('array.removeDuplicates(mixed)', () => {
+  // mixed elements
   expect(array.removeDuplicates([1, 2, 3, 3, 'alice', 'bob', 'alice'])).toStrictEqual([1, 2, 3, 'alice', 'bob'])
 })
 
-test('array.sortNumbers(default)', () => {
+// array.sortNumbers()
+
+test('array.sortNumbers', () => {
+  // default (no sort parameter)
   expect(array.sortNumbers([1, 5, 66, 3, 9, 7, 99, 33])).toStrictEqual([1, 3, 5, 7, 9, 33, 66, 99])
-})
 
-test('array.sortNumbers(ascending)', () => {
+  // malformed sort parameter
+  expect(array.sortNumbers([1, 5, 66, 3, 9, 7, 99, 33])).toStrictEqual([1, 3, 5, 7, 9, 33, 66, 99])
+
+  // ascending
   expect(array.sortNumbers([1, 5, 66, 3, 9, 7, 99, 33], { sort: 'asc' })).toStrictEqual([1, 3, 5, 7, 9, 33, 66, 99])
-})
 
-test('array.sortNumbers(descending)', () => {
+  // descending
   expect(array.sortNumbers([1, 5, 66, 3, 9, 7, 99, 33], { sort: 'desc' })).toStrictEqual([99, 66, 33, 9, 7, 5, 3, 1])
 })
+
+// array.sortStrings()
+
+test('array.sortStrings', () => {
+  let strings = ['foo', 'c', 'aa', 'bar', 'bbb']
+
+  // default (no sort parameter)
+  expect(array.sortStrings(strings)).toStrictEqual(['aa', 'bar', 'bbb', 'c', 'foo'])
+
+  // malformed sort parameter
+  expect(array.sortStrings(strings, { sort: 'hello' })).toStrictEqual(['aa', 'bar', 'bbb', 'c', 'foo'])
+
+  // ascending
+  expect(array.sortStrings(strings, { sort: 'asc' })).toStrictEqual(['aa', 'bar', 'bbb', 'c', 'foo'])
+
+  // descending
+  expect(array.sortStrings(strings, { sort: 'desc' })).toStrictEqual(['foo', 'c', 'bbb', 'bar', 'aa'])
+})
+
+// array.sortStringsByLength()
 
 test('array.sortStringsByLength', () => {
   expect(array.sortStringsByLength(['aaa', 'b', 'cc', 'foo', 'bars'])).toStrictEqual(['b', 'cc', 'aaa', 'foo', 'bars'])
 })
 
-test('array.sanitize(numbers)', () => {
+// array.sanitize()
+
+test('array.sanitize', () => {
+  // numbers
   let numbers = [1, 2, 3]
   numbers[-1] = 5
   numbers.foo = 69
   expect(array.sanitize(numbers)).toStrictEqual([1, 2, 3])
-})
 
-test('array.sanitize(mixed)', () => {
+  // mixed
   let mixed = [1, 2, 3, 'alice', 'bob']
   mixed.foo = 'bar'
   mixed[-1] = 69
@@ -167,7 +204,7 @@ test('array.isEqual', () => {
   expect(array.isEqual(arr, _arr)).toBeTruthy()
 })
 
-// Objects
+// object.parseJSON()
 
 test('object.parseJSON', () => {
   let malformedJSON = {
@@ -183,7 +220,7 @@ test('object.parseJSON', () => {
   expect(object.parseJSON(malformedJSON)).toStrictEqual(wellFormedJSON)
 })
 
-// Sets
+// set.intersection()
 
 test('set.intersection', () => {
   let SetA = new Set([1, 2, 3, 4, 5])
@@ -191,11 +228,15 @@ test('set.intersection', () => {
   expect(Array.from(set.intersection(SetA, SetB))).toStrictEqual([2, 3, 4, 5])
 })
 
+// set.difference()
+
 test('set.difference', () => {
   let SetA = new Set([1, 2, 3, 4, 5])
   let SetB = new Set([2, 3, 4, 5, 6])
   expect(Array.from(set.difference(SetA, SetB))).toStrictEqual([1, 6])
 })
+
+// set.union()
 
 test('set.union', () => {
   let SetA = new Set([1, 2, 3, 4, 5])

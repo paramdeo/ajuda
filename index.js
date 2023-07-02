@@ -1,7 +1,7 @@
 /**
  * Type checks the input parameters of a given function
- * and throws an Error if the parameter type is incorrect
- * @param {any} parameters
+ * and throws an Error if the parameter type is incorrect.
+ * @param {string} parameters
  * @param {any} type
 */
 function checkParams(type, ...parameters) {

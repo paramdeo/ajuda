@@ -116,6 +116,20 @@ export const array = {
   },
 
   /**
+   * Check if an array has duplicate values.
+   * @param {Array} array An array of elements.
+   * @returns {boolean} true if the array has duplicates, false otherwise.
+   * @example
+   * array.hasDuplicates([1, 2, 3, 3]) // true
+   * array.hasDuplicates([1, 2, 3]) // false
+   */
+  hasDuplicates(array) {
+    checkParams('object', array)
+    let _ = new Set(array)
+    return _.size !== array.length
+  },
+
+  /**
    * Removes duplicate elements in an array.
    * @param {Array} array An array of elements.
    * @returns {Array} An array without duplicate elements.

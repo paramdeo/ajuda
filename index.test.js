@@ -61,6 +61,19 @@ test('string.compare', () => {
   expect(string.compare('The quick brown fox', 'The quick brown foxes')).toBeFalsy()
 })
 
+// string.wordCount()
+
+test('string.wordCount', () => {
+  let strA = "the quick brown fox - 69"
+  let strB = "a bb ccc dddd eeeee ffffff g"
+  let strC = "JavaScript, TypeScript, and WebAssembly at the edge, worldwide."
+  expect(string.wordCount(strA)).toStrictEqual(5)
+  expect(string.wordCount(strB)).toStrictEqual(7)
+  expect(string.wordCount(strC)).toStrictEqual(8)
+})
+
+// string.isAnagram()
+
 test('string.isAnagram', () => {
   // true
   expect(string.isAnagram('paramdeo', 'oedmarap')).toBeTruthy()

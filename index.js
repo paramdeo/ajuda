@@ -51,6 +51,29 @@ export const string = {
   },
 
   /**
+   * Returns the number of words in a string. Does not count punctuation.
+   * @param {string} string A string of words in any case.
+   * @returns {number} The number of words.
+   * @example
+   * let strA = "the quick brown fox - 69"
+   * let strB = "a bb ccc dddd eeeee ffffff g"
+   * let strC = "JavaScript, TypeScript, and WebAssembly at the edge, worldwide."
+   * 
+   * string.wordCount(strA) // 5
+   * string.wordCount(strB) // 7
+   * string.wordCount(strC) // 8
+   */
+  wordCount(string) {
+    checkParams('string', string)
+    let _ = string.slice() 
+    return _
+    .replace(/[^A-Za-z0-9]+/g, ' ')
+    .split(/\s+/g)
+    .filter(char => char.trim().length > 0)
+    .length
+   },
+
+  /**
    * Compares two strings to check if they are the same (length, characters in order).
    * @param {string} string The first string to compare.
    * @param {string} _string The second string to compare.

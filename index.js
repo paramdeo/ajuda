@@ -17,6 +17,51 @@ function checkParams(type, ...parameters) {
 export const string = {
 
   /**
+   * Compares two strings to check if they are the same (length, characters in order).
+   * @param {string} string The first string to be compared.
+   * @param {string} _string The second string to be compared.
+   * @returns {boolean} true if the strings are equal, false otherwise.
+   * @example
+   * let strA = 'Hello World.'
+   * let strB = 'Hello World.'
+   * let strC = 'Hello Earth.'
+   * let strD = 'Hello Planet.'
+   * 
+   * string.compare(strA, strB) // true
+   * string.compare(strA, strC) // false
+   * string.compare(strB, strD) // false
+   */
+  compare(string, _string) {
+    checkParams('string', string, _string)
+    if (string.length !== _string.length) {
+      return false
+    }
+    return JSON.stringify(string) === JSON.stringify(_string)
+  },
+
+  /**
+   * Compares two strings to check if they are anagrammatic, that is, if both strings
+   * contain a different arrangement of the same characters.
+   * @param {string} string The first string to be compared.
+   * @param {string} _string The second string to be compared.
+   * @returns {boolean} true if the strings are anagrammatic, false otherwise.
+   * @example
+   * let root = 'root', toor = 'toor', boot = 'boot'
+   * 
+   * string.isAnagram(root, toor) // true
+   * string.isAnagram(root, boot) // false
+   */
+  isAnagram(string, _string) {
+    checkParams('string', string, _string)
+    if (string.length !== _string.length) {
+      return false
+    }
+    let arr = Array.from(string.toLowerCase()).sort()
+    let _arr = Array.from(_string.toLowerCase()).sort()
+    return JSON.stringify(arr) === JSON.stringify(_arr)
+  },
+
+  /**
    * Reverses a given string of characters.
    * @param {string} string A string that needs reversing.
    * @returns {string} A reversed string.
@@ -71,52 +116,7 @@ export const string = {
     .split(/\s+/g)
     .filter(char => char.trim().length > 0)
     .length
-   },
-
-  /**
-   * Compares two strings to check if they are the same (length, characters in order).
-   * @param {string} string The first string to be compared.
-   * @param {string} _string The second string to be compared.
-   * @returns {boolean} true if the strings are equal, false otherwise.
-   * @example
-   * let strA = 'Hello World.'
-   * let strB = 'Hello World.'
-   * let strC = 'Hello Earth.'
-   * let strD = 'Hello Planet.'
-   * 
-   * string.compare(strA, strB) // true
-   * string.compare(strA, strC) // false
-   * string.compare(strB, strD) // false
-   */
-   compare(string, _string) {
-    checkParams('string', string, _string)
-    if (string.length !== _string.length) {
-      return false
-    }
-    return JSON.stringify(string) === JSON.stringify(_string)
-  },
-
-  /**
-   * Compares two strings to check if they are anagrammatic, that is, if both strings
-   * contain a different arrangement of the same characters.
-   * @param {string} string The first string to be compared.
-   * @param {string} _string The second string to be compared.
-   * @returns {boolean} true if the strings are anagrammatic, false otherwise.
-   * @example
-   * let root = 'root', toor = 'toor', boot = 'boot'
-   * 
-   * string.isAnagram(root, toor) // true
-   * string.isAnagram(root, boot) // false
-   */
-   isAnagram(string, _string) {
-    checkParams('string', string, _string)
-    if (string.length !== _string.length) {
-      return false
-    }
-    let arr = Array.from(string.toLowerCase()).sort()
-    let _arr = Array.from(_string.toLowerCase()).sort()
-    return JSON.stringify(arr) === JSON.stringify(_arr)
-  }
+   }
 }
 
 // Arrays
@@ -153,6 +153,28 @@ export const array = {
   },
 
   /**
+   * Checks if two arrays are deeply equal. Mixed-order indices, referential inequality, and hidden properties will return a falsy result.
+   * @param {Array} array The first array to be compared.
+   * @param {Array} _array The second array to be compared.
+   * @returns {boolean} True if the arrays are referentially equal, false otherwise.
+   * @example
+   * let arr1 = [1, 2, 44, 5]
+   * let arr2 = [1, 2, 5, 44]
+   * let arr3 = [1, 2, 44, 5]
+   * arr3[-1] = 6
+   * let arr4 = [1, 2, 5, 44]
+   * let arr5 = arr1
+   * 
+   * array.isEqual(arr1, arr2) // false
+   * array.isEqual(arr1, arr3) // false
+   * array.isEqual(arr2, arr4) // false
+   * array.isEqual(arr1, arr5) // true
+   */
+  isEqual(array, _array) {
+    return Object.is(array, _array)
+  },
+
+  /**
    * Removes duplicate elements in an array.
    * @param {Array} array An array of elements.
    * @returns {Array} An array without duplicate elements.
@@ -164,6 +186,26 @@ export const array = {
     checkParams('object', array)
     let _ = array.slice()
     return Array.from(new Set([..._]))
+  },
+
+  /**
+   * Removes negative array indices, as well as hidden properties.
+   * @param {Array} array An array with possible negative indices and/or hidden properties.
+   * @returns {Array} An array without negative indices or hidden properties.
+   * @example
+   * let example = [1, 2, 3, 'alice', 'bob']
+   * example.foo = 'bar'
+   * example[-1] = 69
+   * 
+   * example.length // 5
+   * Object.values(example) // [1, 2, 3, 'alice', 'bob', 'bar', 69]
+   * 
+   * array.sanitize(example) // [1, 2, 3]
+   */
+  sanitize(array) {
+    checkParams('object', array)
+    let _ = new Set(array)
+    return Array.from(_).filter(element => array.indexOf(element) >= 0)
   },
 
   /**
@@ -218,48 +260,6 @@ export const array = {
     checkParams('object', array)
     let _ = array.slice()
     return _.sort((a, b) => a.length - b.length)
-  },
-
-  /**
-   * Removes negative array indices, as well as hidden properties.
-   * @param {Array} array An array with possible negative indices and/or hidden properties.
-   * @returns {Array} An array without negative indices or hidden properties.
-   * @example
-   * let example = [1, 2, 3, 'alice', 'bob']
-   * example.foo = 'bar'
-   * example[-1] = 69
-   * 
-   * example.length // 5
-   * Object.values(example) // [1, 2, 3, 'alice', 'bob', 'bar', 69]
-   * 
-   * array.sanitize(example) // [1, 2, 3]
-   */
-  sanitize(array) {
-    checkParams('object', array)
-    let _ = new Set(array)
-    return Array.from(_).filter(element => array.indexOf(element) >= 0)
-  },
-
-  /**
-   * Checks if two arrays are deeply equal. Mixed-order indices, referential inequality, and hidden properties will return a falsy result.
-   * @param {Array} array The first array to be compared.
-   * @param {Array} _array The second array to be compared.
-   * @returns {boolean} True if the arrays are referentially equal, false otherwise.
-   * @example
-   * let arr1 = [1, 2, 44, 5]
-   * let arr2 = [1, 2, 5, 44]
-   * let arr3 = [1, 2, 44, 5]
-   * arr3[-1] = 6
-   * let arr4 = [1, 2, 5, 44]
-   * let arr5 = arr1
-   * 
-   * array.isEqual(arr1, arr2) // false
-   * array.isEqual(arr1, arr3) // false
-   * array.isEqual(arr2, arr4) // false
-   * array.isEqual(arr1, arr5) // true
-   */
-  isEqual(array, _array) {
-    return Object.is(array, _array)
   }
 }
 
@@ -293,6 +293,19 @@ export const number = {
     return result
   },
 
+  /**
+   * Returns a random number between 1 and the end of the range (inclusive).
+   * @param {number} _number The upper limit of the range of random numbers.
+   * @result A random number between 1 and the end of the range (inclusive).
+   * @example
+   * return utils.randomNumber(10) // 8
+   * return utils.randomNumber(10) // 4
+   * return utils.randomNumber(10) // 3
+   * return utils.randomNumber(10) // 10
+   */
+  random(_number) {
+    return Math.ceil(Math.random() * _number)
+  },
 
   /**
    * Returns an array of numbers in a given range (inclusive of the starting and ending numbers).
@@ -308,46 +321,50 @@ export const number = {
       range.push(_)
     }
     return range
-  },
-
-  /**
-   * Returns a random number between 1 and the end of the range (inclusive).
-   * @param {number} _number The upper limit of the range of random numbers.
-   * @result A random number between 1 and the end of the range (inclusive).
-   * @example
-   * return utils.randomNumber(10) // 8
-   * return utils.randomNumber(10) // 4
-   * return utils.randomNumber(10) // 3
-   * return utils.randomNumber(10) // 10
-   */
-  random(_number) {
-    return Math.ceil(Math.random() * _number)
   }
 }
 
 // Objects
 
 export const object = {
+
   /**
-   * Returns safely parsed JSON via round-tripping with JSON.stringify first.
+   * Checks whether an object is empty or not.
+   * @param {Object} object The object to check.
+   * @returns {boolean} true if the object is empty, false otherwise.
+   * @example
+   * let object = { name: "alice" }
+   * let emptyObject = {}
+   * 
+   * object.isEmpty(object) // false
+   * object.isEmpty(emptyObject) // true
+   */
+  isEmpty(object) {
+    checkParams('object', object)
+    return JSON.stringify(object) === '{}'
+  },
+
+  /**
+   * Returns safely parsed JSON.
    * @param {Object} object The JSON payload to be safely parsed.
-   * @returns {Object} Safely parsed JSON
+   * @returns {Object} Safely parsed JSON.
    * @example
    * let object = {
-   *     alpha: "bravo",
-   *     "charlie": "delta",
-   *     1: 2
+   *   alpha: "bravo",
+   *   "charlie": "delta",
+   *   1: 2
    * }
    *
-   * object.parseJSON(object)
+   * object.parse(object)
    * 
-   *  {
-   *   "1": 2,
-   *   "alpha": "bravo",
-   *   "charlie": "delta"
-   *  }
+   * {
+   *  "1": 2,
+   *  "alpha": "bravo",
+   *  "charlie": "delta"
+   * }
    */
-  parseJSON(object) {
+  parse(object) {
+    checkParams('object', object)
     return JSON.parse(JSON.stringify(object))
   }
 }
@@ -355,22 +372,6 @@ export const object = {
 // Sets
 
 export const set = {
-  /**
-  * Takes two Sets as arguments and returns a Set that has elements contained in both Sets.
-  * @param {Set} set A Set of elements.
-  * @param {Set} _set A Set of elements.
-  * @returns {Set} A Set containing elements found in both Sets
-  * @example
-  * let SetA = new Set([1, 2, 3, 4, 5])
-  * let SetB = new Set([2, 3, 4, 5, 6])
-  * Array.from(set.intersection(SetA, SetB)) // [2, 3, 4, 5]
-  */
-  intersection(set, _set) {
-    return new Set(
-      Array.from(set).filter(element => _set.has(element))
-    )
-  },
-
 
   /**
   * Takes two Sets as arguments and returns a Set that has elements NOT contained in both Sets. Please note that this operation computes the Symmetric Set Difference as that's a saner/implicit default when comparing two Sets.
@@ -392,6 +393,22 @@ export const set = {
       }
     }
     return __set
+  },
+
+  /**
+  * Takes two Sets as arguments and returns a Set that has elements contained in both Sets.
+  * @param {Set} set A Set of elements.
+  * @param {Set} _set A Set of elements.
+  * @returns {Set} A Set containing elements found in both Sets
+  * @example
+  * let SetA = new Set([1, 2, 3, 4, 5])
+  * let SetB = new Set([2, 3, 4, 5, 6])
+  * Array.from(set.intersection(SetA, SetB)) // [2, 3, 4, 5]
+  */
+  intersection(set, _set) {
+    return new Set(
+      Array.from(set).filter(element => _set.has(element))
+    )
   },
 
   /**

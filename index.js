@@ -75,8 +75,8 @@ export const string = {
 
   /**
    * Compares two strings to check if they are the same (length, characters in order).
-   * @param {string} string The first string to compare.
-   * @param {string} _string The second string to compare.
+   * @param {string} string The first string to be compared.
+   * @param {string} _string The second string to be compared.
    * @returns {boolean} true if the strings are equal, false otherwise.
    * @example
    * let strA = 'Hello World.'
@@ -99,8 +99,8 @@ export const string = {
   /**
    * Compares two strings to check if they are anagrammatic, that is, if both strings
    * contain a different arrangement of the same characters.
-   * @param {string} string The first string to compare.
-   * @param {string} _string The second string to compare.
+   * @param {string} string The first string to be compared.
+   * @param {string} _string The second string to be compared.
    * @returns {boolean} true if the strings are anagrammatic, false otherwise.
    * @example
    * let root = 'root', toor = 'toor', boot = 'boot'
@@ -191,8 +191,8 @@ export const array = {
    * @param {Array<string>} array An array of unsorted strings.
    * @returns {Array<string>} An array of sorted strings.
    * @example
-   * let unsorted = ['aaa', 'b', 'cc', 'foo', 'bars']
-   * array.sortStrings(unsorted, { sort: 'asc' }) // ['aaa', 'b', 'cc', 'foo', 'bars']
+   * let unsorted = ['foo', 'c', 'aa', 'bar', 'bbb']
+   * array.sortStrings(unsorted, { sort: 'asc' }) // ['aa', 'bar', 'bbb', 'c', 'foo']
    */
   sortStrings(array, { sort } = {}) {
     checkParams('object', array)

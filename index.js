@@ -22,14 +22,14 @@ export const string = {
    * @param {string} _string The second string to be compared.
    * @returns {boolean} true if the strings are equal, false otherwise.
    * @example
-   * let strA = 'Hello World.'
-   * let strB = 'Hello World.'
-   * let strC = 'Hello Earth.'
-   * let strD = 'Hello Planet.'
+   * let alpha = 'Hello World.'
+   * let bravo = 'Hello World.'
+   * let charlie = 'Hello Earth.'
+   * let delta = 'Hello Planet.'
    * 
-   * string.compare(strA, strB) // true
-   * string.compare(strA, strC) // false
-   * string.compare(strB, strD) // false
+   * string.compare(alpha, bravo) // true
+   * string.compare(alpha, charlie) // false
+   * string.compare(bravo, delta) // false
    */
   compare(string, _string) {
     checkParams('string', string, _string)
@@ -271,7 +271,7 @@ export const number = {
    * Multiplies two numbers and checks whether either numbers or product are safe integers.
    * @param {number} number A number to be multiplied (throws an error if the number is unsafe).
    * @param {number} _number A number to be multiplied (throws an error if the number is unsafe).
-   * @returns A product (throws an error if the product is unsafe).
+   * @returns {number} A product (throws an error if the product is unsafe).
    * @example
    * number.multiply(5000, 2) // 10000
    * number.multiply(1_000_000, 5) // 5000000
@@ -296,7 +296,7 @@ export const number = {
   /**
    * Returns a random number between 1 and the end of the range (inclusive).
    * @param {number} _number The upper limit of the range of random numbers.
-   * @result A random number between 1 and the end of the range (inclusive).
+   * @returns {number} A random number between 1 and the end of the range (inclusive).
    * @example
    * return utils.randomNumber(10) // 8
    * return utils.randomNumber(10) // 4
@@ -333,15 +333,15 @@ export const object = {
    * @param {Object} object The object to check.
    * @returns {boolean} true if the object is empty, false otherwise.
    * @example
-   * let object = { name: "alice" }
-   * let emptyObject = {}
+   * let notEmpty = { name: "alice" }
+   * let empty = {}
    * 
-   * object.isEmpty(object) // false
-   * object.isEmpty(emptyObject) // true
+   * object.isEmpty(notEmpty) // false
+   * object.isEmpty(empty) // true
    */
-  isEmpty(object) {
-    checkParams('object', object)
-    return JSON.stringify(object) === '{}'
+  isEmpty(_object) {
+    checkParams('object', _object)
+    return JSON.stringify(_object) === '{}'
   },
 
   /**
@@ -349,13 +349,13 @@ export const object = {
    * @param {Object} object The JSON payload to be safely parsed.
    * @returns {Object} Safely parsed JSON.
    * @example
-   * let object = {
+   * let obj = {
    *   alpha: "bravo",
    *   "charlie": "delta",
    *   1: 2
    * }
    *
-   * object.parse(object)
+   * object.parse(obj)
    * 
    * {
    *  "1": 2,
@@ -363,9 +363,9 @@ export const object = {
    *  "charlie": "delta"
    * }
    */
-  parse(object) {
-    checkParams('object', object)
-    return JSON.parse(JSON.stringify(object))
+  parse(_object) {
+    checkParams('object', _object)
+    return JSON.parse(JSON.stringify(_object))
   }
 }
 

@@ -217,9 +217,18 @@ test('array.isEqual', () => {
   expect(array.isEqual(arr, _arr)).toBeTruthy()
 })
 
-// object.parseJSON()
+// object.isEmpty
 
-test('object.parseJSON', () => {
+test('object.isEmpty', () => {
+  let notEmpty = { name: "Alice" }
+  let empty = {}
+  expect(object.isEmpty(notEmpty)).toBeFalsy()
+  expect(object.isEmpty(empty)).toBeTruthy()
+})
+
+// object.parse()
+
+test('object.parse', () => {
   let malformedJSON = {
       alpha: "bravo",
       "charlie": "delta",
@@ -230,7 +239,7 @@ test('object.parseJSON', () => {
       "alpha": "bravo",
       "charlie": "delta"
     }
-  expect(object.parseJSON(malformedJSON)).toStrictEqual(wellFormedJSON)
+  expect(object.parse(malformedJSON)).toStrictEqual(wellFormedJSON)
 })
 
 // set.intersection()

@@ -59,17 +59,37 @@ test('string.compare', () => {
 
   // false
   expect(string.compare('The quick brown fox', 'The quick brown foxes')).toBeFalsy()
+
+  // invalid parameter type
+  expect(() => {
+    string.compare(69)
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    string.compare()
+  }).toThrow()
 })
 
 // string.wordCount()
 
 test('string.wordCount', () => {
-  let strA = "the quick brown fox - 69"
-  let strB = "a bb ccc dddd eeeee ffffff g"
-  let strC = "JavaScript, TypeScript, and WebAssembly at the edge, worldwide."
-  expect(string.wordCount(strA)).toStrictEqual(5)
-  expect(string.wordCount(strB)).toStrictEqual(7)
-  expect(string.wordCount(strC)).toStrictEqual(8)
+  let alpha = "the quick brown fox - 69"
+  let bravo = "a bb ccc dddd eeeee ffffff g"
+  let charlie = "JavaScript, TypeScript, and WebAssembly at the edge, worldwide."
+  expect(string.wordCount(alpha)).toStrictEqual(5)
+  expect(string.wordCount(bravo)).toStrictEqual(7)
+  expect(string.wordCount(charlie)).toStrictEqual(8)
+
+  // invalid parameter type
+  expect(() => {
+    string.wordCount(69)
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    string.wordCount()
+  }).toThrow()
 })
 
 // string.isAnagram()
@@ -80,6 +100,16 @@ test('string.isAnagram', () => {
 
   // false
   expect(string.isAnagram('paramdeo', 'oedmaraps')).toBeFalsy()
+
+  // invalid parameter type
+  expect(() => {
+    string.isAnagram(69)
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    string.isAnagram()
+  }).toThrow()
 })
 
 // number.range()
@@ -108,12 +138,32 @@ test('number.multiply', () => {
   expect(() => {
     number.multiply(9007199254740991, 2)
   }).toThrow()
+
+  // invalid parameter type
+  expect(() => {
+    number.multiply(69, 'alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    number.multiply()
+  }).toThrow()
 })
 
 // number.random()
 
 test('number.random', () => {
   expect(number.random(10)).toBeLessThanOrEqual(10)
+
+  // invalid parameter type
+  expect(() => {
+    number.random('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    number.random()
+  }).toThrow()
 })
 
 // array.flatten()
@@ -128,6 +178,16 @@ test('array.flatten', () => {
   expect(array.flatten(['a', 'bb', ['ccc']])).toStrictEqual(['a', 'bb', 'ccc'])
   expect(array.flatten(['a', 'bb', ['ccc'], [['dddd', 'eeeee']]], 2)).toStrictEqual(['a', 'bb', 'ccc', 'dddd', 'eeeee'])
   expect(array.flatten(['a', 'bb', ['ccc'], [['dddd', 'eeeee']]])).toStrictEqual(['a', 'bb', 'ccc', 'dddd', 'eeeee'])
+
+  // invalid parameter type
+  expect(() => {
+    array.flatten('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.flatten()
+  }).toThrow()
 })
 
 // array.hasDuplicates()
@@ -140,6 +200,16 @@ test('array.hasDuplicates', () => {
   // strings
   expect(array.hasDuplicates(['a', 'b', 'c', 'c'])).toBeTruthy()
   expect(array.hasDuplicates(['a', 'b', 'c'])).toBeFalsy()
+
+  // invalid parameter type
+  expect(() => {
+    array.hasDuplicates('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.hasDuplicates()
+  }).toThrow()
 })
 
 // array.removeDuplicates()
@@ -153,6 +223,16 @@ test('array.removeDuplicates', () => {
 
   // mixed elements
   expect(array.removeDuplicates([1, 2, 3, 3, 'alice', 'bob', 'alice'])).toStrictEqual([1, 2, 3, 'alice', 'bob'])
+
+  // invalid parameter type
+  expect(() => {
+    array.removeDuplicates('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.removeDuplicates()
+  }).toThrow()
 })
 
 // array.sortNumbers()
@@ -169,6 +249,16 @@ test('array.sortNumbers', () => {
 
   // descending
   expect(array.sortNumbers([1, 5, 66, 3, 9, 7, 99, 33], { sort: 'desc' })).toStrictEqual([99, 66, 33, 9, 7, 5, 3, 1])
+
+  // invalid parameter type
+  expect(() => {
+    array.sortNumbers('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.sortNumbers()
+  }).toThrow()
 })
 
 // array.sortStrings()
@@ -187,12 +277,32 @@ test('array.sortStrings', () => {
 
   // descending
   expect(array.sortStrings(strings, { sort: 'desc' })).toStrictEqual(['foo', 'c', 'bbb', 'bar', 'aa'])
+
+  // invalid parameter type
+  expect(() => {
+    array.sortStrings('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.sortStrings()
+  }).toThrow()
 })
 
 // array.sortStringsByLength()
 
 test('array.sortStringsByLength', () => {
   expect(array.sortStringsByLength(['aaa', 'b', 'cc', 'foo', 'bars'])).toStrictEqual(['b', 'cc', 'aaa', 'foo', 'bars'])
+
+  // invalid parameter type
+  expect(() => {
+    array.sortStringsByLength('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.sortStringsByLength()
+  }).toThrow()
 })
 
 // array.sanitize()
@@ -209,12 +319,32 @@ test('array.sanitize', () => {
   mixed.foo = 'bar'
   mixed[-1] = 69
   expect(array.sanitize(mixed)).toStrictEqual([1, 2, 3, 'alice', 'bob'])
+
+  // invalid parameter type
+  expect(() => {
+    array.sanitize('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.sanitize()
+  }).toThrow()
 })
 
 test('array.isEqual', () => {
   let arr = [1, 2, 3, 4, 5]
   let _arr = arr
   expect(array.isEqual(arr, _arr)).toBeTruthy()
+
+  // invalid parameter type
+  expect(() => {
+    array.flatten('alpha', 69)
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.flatten()
+  }).toThrow()
 })
 
 // object.isEmpty
@@ -224,6 +354,16 @@ test('object.isEmpty', () => {
   let empty = {}
   expect(object.isEmpty(notEmpty)).toBeFalsy()
   expect(object.isEmpty(empty)).toBeTruthy()
+
+  // invalid parameter type
+  expect(() => {
+    object.isEmpty('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    object.isEmpty()
+  }).toThrow()
 })
 
 // object.parse()
@@ -240,6 +380,16 @@ test('object.parse', () => {
       "charlie": "delta"
     }
   expect(object.parse(malformedJSON)).toStrictEqual(wellFormedJSON)
+
+  // invalid parameter type
+  expect(() => {
+    object.parse('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    object.parse()
+  }).toThrow()
 })
 
 // set.intersection()
@@ -248,6 +398,16 @@ test('set.intersection', () => {
   let SetA = new Set([1, 2, 3, 4, 5])
   let SetB = new Set([2, 3, 4, 5, 6])
   expect(Array.from(set.intersection(SetA, SetB))).toStrictEqual([2, 3, 4, 5])
+
+  // invalid parameter type
+  expect(() => {
+    (Array.from(set.intersection('alpha', 69)))
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    (Array.from(set.intersection()))
+  }).toThrow()
 })
 
 // set.difference()
@@ -256,6 +416,16 @@ test('set.difference', () => {
   let SetA = new Set([1, 2, 3, 4, 5])
   let SetB = new Set([2, 3, 4, 5, 6])
   expect(Array.from(set.difference(SetA, SetB))).toStrictEqual([1, 6])
+
+  // invalid parameter type
+  expect(() => {
+    (Array.from(set.difference('alpha', 69)))
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    (Array.from(set.difference()))
+  }).toThrow()
 })
 
 // set.union()
@@ -264,5 +434,14 @@ test('set.union', () => {
   let SetA = new Set([1, 2, 3, 4, 5])
   let SetB = new Set([2, 3, 4, 5, 6])
   expect(Array.from(set.union(SetA, SetB))).toStrictEqual([1, 2, 3, 4, 5, 6])
-})
 
+  // invalid parameter type
+  expect(() => {
+    (Array.from(set.union('alpha', 69)))
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    (Array.from(set.union()))
+  }).toThrow()
+})

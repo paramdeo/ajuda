@@ -151,7 +151,7 @@ export namespace array {
      * @returns {Array<string>} An array of sorted strings.
      * @example
      * let unsorted = ['aaa', 'b', 'cc', 'foo', 'bars']
-     * array.sortStrings(unsorted) // ['b', 'cc', 'aaa', 'foo', 'bars']
+     * array.sortStringsByLength(unsorted) // ['b', 'cc', 'aaa', 'foo', 'bars']
      */
     function sortStringsByLength(array: string[]): string[];
 }

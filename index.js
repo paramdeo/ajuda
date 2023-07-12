@@ -254,7 +254,7 @@ export const array = {
    * @returns {Array<string>} An array of sorted strings.
    * @example
    * let unsorted = ['aaa', 'b', 'cc', 'foo', 'bars']
-   * array.sortStrings(unsorted) // ['b', 'cc', 'aaa', 'foo', 'bars']
+   * array.sortStringsByLength(unsorted) // ['b', 'cc', 'aaa', 'foo', 'bars']
    */
   sortStringsByLength(array) {
     checkParams('object', array)
@@ -377,11 +377,11 @@ export const set = {
   * Takes two Sets as arguments and returns a Set that has elements NOT contained in both Sets. Please note that this operation computes the Symmetric Set Difference as that's a saner/implicit default when comparing two Sets.
   * @param {Set} set A Set of elements.
   * @param {Set} _set A Set of elements.
-  * @returns {Set} A Set containing elements NOT found in both Sets
+  * @returns {Set} A Set containing elements NOT found in both Sets.
   * @example
   * let SetA = new Set([1, 2, 3, 4, 5])
   * let SetB = new Set([2, 3, 4, 5, 6])
-  * Array.from(set.intersection(SetA, SetB)) // [1, 6]
+  * Array.from(set.difference(SetA, SetB)) // [1, 6]
   */
   difference(set, _set) {
     let __set = new Set(set)
@@ -399,7 +399,7 @@ export const set = {
   * Takes two Sets as arguments and returns a Set that has elements contained in both Sets.
   * @param {Set} set A Set of elements.
   * @param {Set} _set A Set of elements.
-  * @returns {Set} A Set containing elements found in both Sets
+  * @returns {Set} A Set containing elements found in both Sets.
   * @example
   * let SetA = new Set([1, 2, 3, 4, 5])
   * let SetB = new Set([2, 3, 4, 5, 6])

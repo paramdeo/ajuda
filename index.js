@@ -153,25 +153,20 @@ export const array = {
   },
 
   /**
-   * Checks if two arrays are deeply equal. Mixed-order indices, referential inequality, and hidden properties will return a falsy result.
+   * Checks if two arrays are shallowly equal. That is, they have the same elements, in the same order, but occupy different addresses in memory.
    * @param {Array} array The first array to be compared.
    * @param {Array} _array The second array to be compared.
-   * @returns {boolean} True if the arrays are referentially equal, false otherwise.
+   * @returns {boolean} True if the arrays are shallowly equal, false otherwise.
    * @example
    * let arr1 = [1, 2, 44, 5]
    * let arr2 = [1, 2, 5, 44]
    * let arr3 = [1, 2, 44, 5]
-   * arr3[-1] = 6
-   * let arr4 = [1, 2, 5, 44]
-   * let arr5 = arr1
    * 
    * array.isEqual(arr1, arr2) // false
-   * array.isEqual(arr1, arr3) // false
-   * array.isEqual(arr2, arr4) // false
-   * array.isEqual(arr1, arr5) // true
+   * array.isEqual(arr1, arr3) // true
    */
   isEqual(array, _array) {
-    return Object.is(array, _array)
+    return JSON.stringify(array) === JSON.stringify(_array)
   },
 
   /**
@@ -304,6 +299,7 @@ export const number = {
    * return utils.randomNumber(10) // 10
    */
   random(_number) {
+    checkParams('number', _number)
     return Math.ceil(Math.random() * _number)
   },
 

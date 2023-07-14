@@ -331,11 +331,14 @@ test('array.sanitize', () => {
   }).toThrow()
 })
 
-test('array.isEqual', () => {
-  let arr = [1, 2, 3, 4, 5]
-  let _arr = arr
-  expect(array.isEqual(arr, _arr)).toBeTruthy()
+// array.isEqual
 
+test('array.isEqual', () => {
+  let alpha = [1, 2, 3, 4, 5]
+  let bravo = [1, 2, 3, 4, 5]
+  let charlie = [1, 2, 4, 3, 5] 
+  expect(array.isEqual(alpha, bravo)).toBeTruthy()
+  expect(array.isEqual(alpha, charlie)).toBeFalsy()
   // invalid parameter type
   expect(() => {
     array.flatten('alpha', 69)

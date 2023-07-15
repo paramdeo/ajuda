@@ -8,7 +8,7 @@
     "index.d.ts",
     "index.d.ts.map",
     "LICENSE",
-    "README"
+    "README.md"
   ],
   "type": "module",
   "scripts": {

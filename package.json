@@ -18,10 +18,7 @@
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage=true"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/paramdeo/ajuda.git"
-  },
+  "repository": "github:paramdeo/ajuda",
   "keywords": [
     "javascript",
     "helper",

@@ -81,22 +81,17 @@ export namespace array {
      */
     function hasDuplicates(array: any[]): boolean;
     /**
-     * Checks if two arrays are deeply equal. Mixed-order indices, referential inequality, and hidden properties will return a falsy result.
+     * Checks if two arrays are shallowly equal. That is, they have the same elements, in the same order, but occupy different addresses in memory.
      * @param {Array} array The first array to be compared.
      * @param {Array} _array The second array to be compared.
-     * @returns {boolean} True if the arrays are referentially equal, false otherwise.
+     * @returns {boolean} True if the arrays are shallowly equal, false otherwise.
      * @example
      * let arr1 = [1, 2, 44, 5]
      * let arr2 = [1, 2, 5, 44]
      * let arr3 = [1, 2, 44, 5]
-     * arr3[-1] = 6
-     * let arr4 = [1, 2, 5, 44]
-     * let arr5 = arr1
      *
      * array.isEqual(arr1, arr2) // false
-     * array.isEqual(arr1, arr3) // false
-     * array.isEqual(arr2, arr4) // false
-     * array.isEqual(arr1, arr5) // true
+     * array.isEqual(arr1, arr3) // true
      */
     function isEqual(array: any[], _array: any[]): boolean;
     /**
@@ -160,7 +155,7 @@ export namespace number {
      * Multiplies two numbers and checks whether either numbers or product are safe integers.
      * @param {number} number A number to be multiplied (throws an error if the number is unsafe).
      * @param {number} _number A number to be multiplied (throws an error if the number is unsafe).
-     * @returns A product (throws an error if the product is unsafe).
+     * @returns {number} A product (throws an error if the product is unsafe).
      * @example
      * number.multiply(5000, 2) // 10000
      * number.multiply(1_000_000, 5) // 5000000
@@ -172,7 +167,7 @@ export namespace number {
     /**
      * Returns a random number between 1 and the end of the range (inclusive).
      * @param {number} _number The upper limit of the range of random numbers.
-     * @result A random number between 1 and the end of the range (inclusive).
+     * @returns {number} A random number between 1 and the end of the range (inclusive).
      * @example
      * return utils.randomNumber(10) // 8
      * return utils.randomNumber(10) // 4
@@ -196,25 +191,25 @@ export namespace object {
      * @param {Object} object The object to check.
      * @returns {boolean} true if the object is empty, false otherwise.
      * @example
-     * let object = { name: "alice" }
-     * let emptyObject = {}
+     * let notEmpty = { name: "alice" }
+     * let empty = {}
      *
-     * object.isEmpty(object) // false
-     * object.isEmpty(emptyObject) // true
+     * object.isEmpty(notEmpty) // false
+     * object.isEmpty(empty) // true
      */
-    function isEmpty(object: any): boolean;
+    function isEmpty(_object: any): boolean;
     /**
      * Returns safely parsed JSON.
      * @param {Object} object The JSON payload to be safely parsed.
      * @returns {Object} Safely parsed JSON.
      * @example
-     * let object = {
+     * let obj = {
      *   alpha: "bravo",
      *   "charlie": "delta",
      *   1: 2
      * }
      *
-     * object.parse(object)
+     * object.parse(obj)
      *
      * {
      *  "1": 2,
@@ -222,25 +217,25 @@ export namespace object {
      *  "charlie": "delta"
      * }
      */
-    function parse(object: any): any;
+    function parse(_object: any): any;
 }
 export namespace set {
     /**
     * Takes two Sets as arguments and returns a Set that has elements NOT contained in both Sets. Please note that this operation computes the Symmetric Set Difference as that's a saner/implicit default when comparing two Sets.
     * @param {Set} set A Set of elements.
     * @param {Set} _set A Set of elements.
-    * @returns {Set} A Set containing elements NOT found in both Sets
+    * @returns {Set} A Set containing elements NOT found in both Sets.
     * @example
     * let SetA = new Set([1, 2, 3, 4, 5])
     * let SetB = new Set([2, 3, 4, 5, 6])
-    * Array.from(set.intersection(SetA, SetB)) // [1, 6]
+    * Array.from(set.difference(SetA, SetB)) // [1, 6]
     */
     function difference(set: Set<any>, _set: Set<any>): Set<any>;
     /**
     * Takes two Sets as arguments and returns a Set that has elements contained in both Sets.
     * @param {Set} set A Set of elements.
     * @param {Set} _set A Set of elements.
-    * @returns {Set} A Set containing elements found in both Sets
+    * @returns {Set} A Set containing elements found in both Sets.
     * @example
     * let SetA = new Set([1, 2, 3, 4, 5])
     * let SetB = new Set([2, 3, 4, 5, 6])

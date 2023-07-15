@@ -1,7 +1,7 @@
 {
   "name": "ajuda",
   "version": "1.0.0",
-  "description": "A library of methods to augment functionality on JavaScript objects and primitives.",
+  "description": "A helpful JavaScript utility library.",
   "main": "index.js",
   "files": [
     "index.js",
@@ -18,14 +18,15 @@
   },
   "keywords": [
     "javascript",
-    "helper"
+    "helper",
+    "utilities"
   ],
   "author": "Paramdeo Singh <paramdeo@paramdeo.com> (https://paramdeo.com)",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/paramdeo/ajuda/issues"
   },
-  "homepage": "https://github.com/paramdeo/ajuda#readme",
+  "homepage": "https://ajuda.page",
   "devDependencies": {
     "@types/jest": "^29.5.1",
     "cross-env": "^7.0.3",

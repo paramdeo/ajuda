@@ -11,6 +11,9 @@
     "README.md"
   ],
   "type": "module",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage=true"
   },

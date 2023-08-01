@@ -70,7 +70,7 @@ export const string = {
    */
   reverse(string) {
     checkParams('string', string)
-    let _ = string.slice()
+    let _ = structuredClone(string)
     return Array.from(_)
       .reverse()
       .join('')
@@ -124,6 +124,24 @@ export const string = {
 export const array = {
 
   /**
+   * Creates a deep copy of an array (where nested elements will not reference the original).
+   * @param {Array} array An array of elements.
+   * @returns {Array} A new array.
+   * @example
+   * let alpha = [1, [ 2 ]]
+   * let bravo = array.deepCopy(alpha)
+   * alpha[1][0] = 3
+   *
+   * bravo[1][0] === 3 // false
+   * bravo[1][0] === 2 // true
+   */
+  deepCopy(array) {
+    checkParams('object', array)
+    let _ = structuredClone(array)
+    return _
+  },
+
+  /**
    * Flattens an array. If no depth is specified, the array is flattened completely by default.
    * @param {Array} array An array of elements.
    * @param {number} number The depth at which to flatten. If omitted, defaults to Infinity.
@@ -134,7 +152,7 @@ export const array = {
    */
   flatten(array, number = Infinity) {
     checkParams('object', array)
-    let _ = array.slice()
+    let _ = structuredClone(array)
     return _.flat(number)
   },
 
@@ -179,7 +197,7 @@ export const array = {
    */
   removeDuplicates(array) {
     checkParams('object', array)
-    let _ = array.slice()
+    let _ = structuredClone(array)
     return Array.from(new Set([..._]))
   },
 
@@ -213,7 +231,7 @@ export const array = {
    */
   sortNumbers(array, { sort } = {}) {
     checkParams('object', array)
-    let _ = array.slice()
+    let _ = structuredClone(array)
     if (sort === 'desc') {
       return _.sort((a, b) => b - a)
     }
@@ -233,7 +251,7 @@ export const array = {
    */
   sortStrings(array, { sort } = {}) {
     checkParams('object', array)
-    let _ = array.slice()
+    let _ = structuredClone(array)
     if (sort === 'desc') {
       return _.sort().reverse()
     }
@@ -253,7 +271,7 @@ export const array = {
    */
   sortStringsByLength(array) {
     checkParams('object', array)
-    let _ = array.slice()
+    let _ = structuredClone(array)
     return _.sort((a, b) => a.length - b.length)
   }
 }
@@ -293,10 +311,10 @@ export const number = {
    * @param {number} _number The upper limit of the range of random numbers.
    * @returns {number} A random number between 1 and the end of the range (inclusive).
    * @example
-   * return utils.randomNumber(10) // 8
-   * return utils.randomNumber(10) // 4
-   * return utils.randomNumber(10) // 3
-   * return utils.randomNumber(10) // 10
+   * return number.random(10) // 8
+   * return number.random(10) // 4
+   * return number.random(10) // 3
+   * return number.random(10) // 10
    */
   random(_number) {
     checkParams('number', _number)
@@ -323,6 +341,23 @@ export const number = {
 // Objects
 
 export const object = {
+
+  /**
+   * Creates a deep copy of an object (where nested elements will not reference the original).
+   * @param {Object} _object A plain old JavaScript object.
+   * @returns {Object} A new object.
+   * @example
+   * let alpha = { hello: "world" }
+   * let bravo = object.deepCopy(alpha)
+   * alpha.hello = "earth"
+   *
+   * bravo.hello === "earth" // false
+   */
+  deepCopy(_object) {
+    checkParams('object', _object)
+    let _ = structuredClone(_object)
+    return _
+  },
 
   /**
    * Checks whether an object is empty or not.

@@ -168,6 +168,24 @@ test('number.random', () => {
 
 // array.flatten()
 
+test('array.deepCopy', () => {
+  let alpha = [1, [2]]
+  let bravo = array.deepCopy(alpha)
+  alpha[1][0] = 3
+
+  expect(bravo[1][0]).toStrictEqual(2)
+  
+  // invalid parameter type
+  expect(() => {
+    array.deepCopy(69)
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    array.deepCopy()
+  }).toThrow()
+})
+
 test('array.flatten', () => {
   // numbers
   expect(array.flatten([1, 2, [3]])).toStrictEqual([1, 2, 3])
@@ -347,6 +365,25 @@ test('array.isEqual', () => {
   // missing parameters
   expect(() => {
     array.flatten()
+  }).toThrow()
+})
+
+// object.deepCopy
+
+test('object.deepCopy', () => {
+  let alpha = { hello: "world" }
+  let bravo = object.deepCopy(alpha)
+  bravo.hello = 'earth'
+  expect(alpha.hello).toStrictEqual('world')
+  
+  // invalid parameter type
+  expect(() => {
+    object.deepCopy('alpha')
+  }).toThrow()
+
+  // missing parameters
+  expect(() => {
+    object.deepCopy()
   }).toThrow()
 })
 

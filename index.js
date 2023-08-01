@@ -88,7 +88,7 @@ export const string = {
   slugify(string) {
     checkParams('string', string)
     let unsafe = /[^a-z0-9-_]/g
-    let _ = string.slice()
+    let _ = structuredClone(string)
     return _
       .toLowerCase()
       .replaceAll(' ', '-')
@@ -110,7 +110,7 @@ export const string = {
    */
   wordCount(string) {
     checkParams('string', string)
-    let _ = string.slice() 
+    let _ = structuredClone(string) 
     return _
     .replace(/[^A-Za-z0-9]+/g, ' ')
     .split(/\s+/g)
